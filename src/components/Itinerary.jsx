@@ -8,22 +8,29 @@ const mockItinerary = mockData();
 export default function ItineraryApp() {
   const [itinerary, setItinerary] = useState(mockItinerary);
   const [selected, setSelected] = useState(null);
+  let isDragging = false;
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
       {/* Left Itinerary List */}
-      <div className="w-full md:w-1/2 overflow-y-auto p-4 bg-white">
+      <div className="w-full overflow-y-auto p-4 bg-white">
         <h2 className="text-2xl font-bold mb-4">Itinerary</h2>
         <Reorder.Group axis="y" values={itinerary} onReorder={setItinerary}>
-          {itinerary.map((item) => (
+          {itinerary.map((item, index) => (
             <Reorder.Item
-              key={item.id}
-              value={item}
-              onClick={() => setSelected(item)}
-              className="flex items-start bg-gray-100 rounded-lg p-3 mb-4 gap-3 cursor-pointer hover:bg-gray-200 transition"
-            >
+            onPointerDown={() => { isDragging = false; }}
+            onDragStart={() => { isDragging = true; }}
+            onClick={() => {
+              if (!isDragging) setSelected(item); 
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 40 }}
+            key={item.id}
+            value={item}
+            className="flex items-start my-2 bg-gray-100 p-3 gap-3 cursor-pointer hover:bg-gray-200"
+          >
+              <div className="reorder-handle">{index}</div>
               <img
                 src={item.image}
                 alt={item.title}
