@@ -1,4 +1,4 @@
-import './App.css'
+// import './App.css'
 import ItineraryList from './components/Itinerary'
 
 function App() {

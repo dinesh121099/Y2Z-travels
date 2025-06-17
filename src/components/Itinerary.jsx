@@ -30,7 +30,7 @@ export default function ItineraryApp() {
             value={item}
             className="flex items-start my-2 bg-gray-100 p-3 gap-3 cursor-pointer hover:bg-gray-200"
           >
-              <div className="reorder-handle">{index}</div>
+              <span className="bg-red-500 rounded/ text-amber-50 absolute"> &nbsp;{index}&nbsp;</span>
               <img
                 src={item.image}
                 alt={item.title}
